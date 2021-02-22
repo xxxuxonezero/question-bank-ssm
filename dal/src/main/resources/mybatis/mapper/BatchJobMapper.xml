@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onezero.dal.BatchJobMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="com.onezero.dal.data.BatchJobData">
+        INSERT INTO batch_job(group_name, job_name, job_class, job_cron, job_params)
+        VALUES(#{groupName}, #{jobName}, #{jobClass}, IF(#{jobCron} IS NULL, '0', #{jobCron}), #{jobParams})
+    </insert>
+
+    <update id="update">
+        UPDATE batch_job
+        SET group_name = #{groupName}, job_name = #{jobName},
+        job_class = #{jobClass}, job_cron = #{jobCron}, job_params = #{jobParams}, job_status = #{jobStatus}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM batch_job
+        WHERE id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="search" resultMap="batchJob, count">
+        SELECT SQL_CALC_FOUND_ROWS * FROM batch_job
+        WHERE (#{groupName} IS NULL OR group_name = #{groupName})
+        AND (#{jobStatus} IS NULL OR job_status = #{jobStatus})
+        <if test="ids != null">
+            AND id IN
+            <foreach collection="ids" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        AND (#{jobName} IS NULL OR job_name = #{jobName})
+        LIMIT ${(page - 1) * pageSize}, #{pageSize};
+
+        SELECT FOUND_ROWS() AS count;
+    </select>
+
+    <resultMap id="batchJob" type="com.onezero.dal.data.BatchJobData">
+        <id column="id" property="id"></id>
+        <result column="group_name" property="groupName"/>
+        <result column="job_name" property="jobName"/>
+        <result column="job_class" property="jobClass"/>
+        <result column="job_params" property="jobParams"/>
+        <result column="job_status" property="jobStatus"/>
+        <result column="job_cron" property="jobCron"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+
+    <resultMap id="count" type="java.lang.Integer">
+        <result column="count"/>
+    </resultMap>
+
+</mapper>

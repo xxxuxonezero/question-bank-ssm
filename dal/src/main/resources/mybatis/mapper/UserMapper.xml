@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onezero.dal.UserMapper">
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `user`(display_name, email, password, type,
+        avatar, introduction)
+        VALUES (#{displayName}, #{email}, #{password}, #{type}, #{avatar}, #{introduction})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `user`
+        WHERE id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        UPDATE `user`
+        SET display_name = #{displayName}, email = #{email},
+        <if test="type != null">
+            type = #{type},
+        </if>
+         avatar = #{avatar}, introduction = #{introduction}
+    </update>
+
+    <update id="resetPassword">
+        UPDATE `user`
+        SET password = #{password}
+        WHERE id = #{id}
+    </update>
+
+    <select id="search" resultMap="user, count">
+        SELECT SQL_CALC_FOUND_ROWS * FROM `user`
+        WHERE (#{email} IS NULL OR email = #{email})
+        AND (#{password} IS NULL OR password = #{password})
+        AND (#{type} IS NULL OR type = #{type})
+        LIMIT ${(page - 1) * pageSize}, #{pageSize};
+
+        SELECT FOUND_ROWS() AS count;
+    </select>
+
+    <resultMap id="user" type="com.onezero.dal.data.UserData">
+        <id property="id" column="id"></id>
+        <result column="display_name" property="displayName"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="type" property="type"/>
+        <result column="avatar" property="avatar"/>
+        <result column="introduction" property="introduction"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+
+</mapper>
