@@ -33,7 +33,7 @@ public class UserTest {
 
     @Test
     public void search() {
-        GenericResult<User> user = userManager.getUserByEmailAndPassword("1023452427@qq.com", "Aa123456");
+        GenericResult<User> user = userManager.getUserByEmailAndPassword("642171493@qq.com", "12345678");
         System.out.println(user.getData().getDisplayName());
 
         GenericResult<Page<User>> page = userManager.search(null, null, 0, 1, Integer.MAX_VALUE);
@@ -42,7 +42,7 @@ public class UserTest {
 
     @Test
     public void resetPassword() {
-        NoneDataResult result = userManager.resetPassword(1, "12345678");
+        NoneDataResult result = userManager.resetPassword(1, "12345678912345678");
         Assert.assertEquals(0, result.getCode());
     }
 

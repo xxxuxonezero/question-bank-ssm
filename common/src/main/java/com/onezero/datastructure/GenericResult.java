@@ -7,7 +7,7 @@ public class GenericResult<T> extends AbstractResult<T>{
     private String msg;
 
     public GenericResult() {
-        code = ICode.OK;
+        this(Code.OK);
     }
 
     public GenericResult(int code) {

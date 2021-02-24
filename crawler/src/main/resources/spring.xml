@@ -30,7 +30,7 @@
 
     <!--把每一个dao接口的实现都添加到ioc容器中-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.onezero.mapper"/>
+        <property name="basePackage" value="com.onezero.dal"/>
     </bean>
 
 </beans>

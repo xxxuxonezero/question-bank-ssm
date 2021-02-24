@@ -1,5 +1,6 @@
 package com.onezero.bll.account;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.onezero.BaseObject;
 import com.onezero.dal.data.UserData;
 import com.onezero.model.UserTypeEnum;
@@ -12,7 +13,10 @@ public class User extends BaseObject {
 	private Integer type;
 	private String avatar;
 	private String introduction;
+	private String typeDesc;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createdTime;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date updatedTime;
 
 
@@ -40,6 +44,7 @@ public class User extends BaseObject {
 			this.setType(data.getType());
 			this.setAvatar(data.getAvatar());
 			this.setIntroduction(data.getIntroduction());
+			this.setTypeDesc(UserTypeEnum.getTypeDesc(data.getType()));
 			this.setCreatedTime(data.getCreatedTime());
 			this.setUpdatedTime(data.getUpdatedTime());
 		}
@@ -47,6 +52,14 @@ public class User extends BaseObject {
 
 
 	public User() {
+	}
+
+	public String getTypeDesc() {
+		return typeDesc;
+	}
+
+	public void setTypeDesc(String typeDesc) {
+		this.typeDesc = typeDesc;
 	}
 
 	public void setDisplayName(String displayName) {

@@ -7,6 +7,7 @@ import com.onezero.datastructure.GenericResult;
 import com.onezero.datastructure.NoneDataResult;
 import com.onezero.datastructure.Page;
 import com.onezero.model.UserTypeEnum;
+import com.onezero.utils.MD5Utils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ public class UserManager {
                 if (user.getType() == null) {
                     user.setType(UserTypeEnum.NORMAL_USER);
                 }
+                user.setPassword(MD5Utils.md5Hex(user.getPassword()));
                 userMapper.create(user.toData());
             }
         } catch (Exception e) {
@@ -44,6 +46,7 @@ public class UserManager {
         NoneDataResult result = new NoneDataResult();
         try {
             if (user != null) {
+                user.setPassword(MD5Utils.md5Hex(user.getPassword()));
                 userMapper.update(user.toData());
             }
         } catch (Exception e) {
@@ -67,6 +70,7 @@ public class UserManager {
     public GenericResult<Page<User>> search(String email, String password, Integer type, Integer page, Integer pageSize) {
         GenericResult<Page<User>> result = new GenericResult<>();
         try {
+            password =  MD5Utils.md5Hex(password);
             List<List<?>> list = userMapper.search(email, password, type, page, pageSize);
             List<UserData> dataList = (List<UserData>) list.get(0);
             List<User> users = null;
@@ -97,6 +101,7 @@ public class UserManager {
     public NoneDataResult resetPassword(Integer id, String password) {
         NoneDataResult result = new NoneDataResult();
         try {
+            password = MD5Utils.md5Hex(password);
             userMapper.resetPassword(id, password);
         } catch (Exception e) {
             logger.error("id = {}, password = {}", e);

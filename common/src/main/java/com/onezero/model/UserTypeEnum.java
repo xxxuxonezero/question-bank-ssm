@@ -21,4 +21,14 @@ public enum UserTypeEnum {
         return desc;
     }
 
+    public static String getTypeDesc(int id) {
+        String typeDesc = "";
+        for (UserTypeEnum userTypeEnum : UserTypeEnum.values()) {
+            if (userTypeEnum.id == id) {
+                typeDesc = userTypeEnum.desc;
+            }
+        }
+        return typeDesc;
+    }
+
 }

@@ -9,7 +9,8 @@ public enum Code implements ICode {
     DATABASE_UPDATE_ERROR(0x20000002, "数据更新失败"),
     DATABASE_INSERT_ERROR(0x20000003, "数据库插入失败"),
 
-    NO_AUTH(0X30000000,"无权限");
+    NO_AUTH(0X30000000,"无权限"),
+    EMAIL_OR_PASSWORD(0X30000001, "用户名或密码输入错误");
 
 
     private String msg;

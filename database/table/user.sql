@@ -4,7 +4,7 @@ CREATE TABLE `user`(
     id INT AUTO_INCREMENT PRIMARY KEY,
     display_name VARCHAR(40) NOT NULL,
     email VARCHAR(40) NOT NULL UNIQUE,
-    password VARCHAR(20) NOT NULL,
+    password CHAR(40) NOT NULL,
     type TINYINT NOT NULL DEFAULT 0 COMMENT '0用户 1管理员',
     avatar VARCHAR(100) DEFAULT '',
     introduction VARCHAR(300) DEFAULT '',

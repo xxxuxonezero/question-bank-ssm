@@ -24,6 +24,9 @@
         <if test="type != null">
             type = #{type},
         </if>
+        <if test="password != null">
+            password = #{password},
+        </if>
          avatar = #{avatar}, introduction = #{introduction}
     </update>
 

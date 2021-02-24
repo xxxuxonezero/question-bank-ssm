@@ -1,5 +1,7 @@
 package com.onezero.parse;
 
 public interface IParser<T> {
-    T parse(String html);
+    T parseHtml(String html);
+
+    T parseJson(String json);
 }
