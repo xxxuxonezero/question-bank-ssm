@@ -6,7 +6,8 @@ import java.util.List;
 public class QuestionData {
     private String id;
     private String content;
-    private List<Option> options;
+    private List<OptionData> options;
+    private List<QuestionData> subQuestions;
     private String answer;
     private Integer type;
     private Integer authorId;
@@ -31,12 +32,20 @@ public class QuestionData {
         this.content = content;
     }
 
-    public List<Option> getOptions() {
+    public List<OptionData> getOptions() {
         return options;
     }
 
-    public void setOptions(List<Option> options) {
+    public void setOptions(List<OptionData> options) {
         this.options = options;
+    }
+
+    public List<QuestionData> getSubQuestions() {
+        return subQuestions;
+    }
+
+    public void setSubQuestions(List<QuestionData> subQuestions) {
+        this.subQuestions = subQuestions;
     }
 
     public String getAnswer() {

@@ -18,19 +18,29 @@
             <artifactId>bll</artifactId>
             <version>1.0</version>
         </dependency>
-        <!--  selenium -->
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.2.0</version>
+            <version>4.0.0-beta-1</version>
         </dependency>
+
 
         <!-- chrome浏览器驱动-->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
-            <version>3.2.0</version>
+            <version>4.0.0-beta-1</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-driver -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>4.0.0-beta-1</version>
+        </dependency>
+
 
         <!-- 没有运行会报错-->
         <dependency>

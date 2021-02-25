@@ -1,13 +1,13 @@
 package com.onezero.mongo.data;
 
-public class Option {
+public class OptionData {
     private String label;
     private String content;
 
-    public Option() {
+    public OptionData() {
     }
 
-    public Option(String label, String content) {
+    public OptionData(String label, String content) {
         this.label = label;
         this.content = content;
     }

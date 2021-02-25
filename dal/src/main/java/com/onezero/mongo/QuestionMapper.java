@@ -1,12 +1,11 @@
 package com.onezero.mongo;
 
-import com.onezero.mongo.data.Option;
+import com.onezero.mongo.data.OptionData;
 import com.onezero.mongo.data.QuestionData;
 import org.apache.commons.collections4.CollectionUtils;
 import org.bson.Document;
 import org.springframework.stereotype.Component;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +28,7 @@ public class QuestionMapper extends MongoBaseMapper<QuestionData> {
         data.setAnalysis(document.getString("analysis"));
         data.setAuthorId(document.getInteger("author_id"));
         data.setContent(document.getString("content"));
+        data.setType(document.getInteger("type"));
         data.setDifficulty(document.getDouble("difficulty"));
         data.setOptions(docs2Datas(document.getList("options", Document.class)));
         data.setCreatedTime(document.getDate("created_time"));
@@ -36,10 +36,10 @@ public class QuestionMapper extends MongoBaseMapper<QuestionData> {
         return data;
     }
 
-    private List<Document> datas2DocumentList(List<Option> options) {
+    private List<Document> datas2DocumentList(List<OptionData> options) {
         List<Document> docs = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(options)) {
-            for (Option option : options) {
+            for (OptionData option : options) {
                 Document doc = new MongoDocument();
                 doc.put("label", option.getLabel());
                 doc.put("content", option.getContent());
@@ -49,11 +49,11 @@ public class QuestionMapper extends MongoBaseMapper<QuestionData> {
         return docs;
     }
 
-    private List<Option> docs2Datas(List<Document> docs) {
-        List<Option> options = new ArrayList<>();
+    private List<OptionData> docs2Datas(List<Document> docs) {
+        List<OptionData> options = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(docs)) {
             for (Document doc : docs) {
-                Option option = new Option(doc.getString("label"), doc.getString("content"));
+                OptionData option = new OptionData(doc.getString("label"), doc.getString("content"));
                 options.add(option);
             }
         }

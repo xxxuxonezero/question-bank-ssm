@@ -13,7 +13,7 @@ public class JSONUtils {
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    public static final Object toObject(String s, Class clazz) throws JsonProcessingException {
+    public static final Object toObject(String s, Class clazz) {
         Object o = null;
         if (StringUtils.isEmpty(s) || clazz == null) {
             return o;
@@ -26,7 +26,7 @@ public class JSONUtils {
         return o;
     }
 
-    public static final String toJson(Object o) throws JsonProcessingException {
+    public static final String toJson(Object o) {
         String s = null;
         if (o == null) {
             return s;
