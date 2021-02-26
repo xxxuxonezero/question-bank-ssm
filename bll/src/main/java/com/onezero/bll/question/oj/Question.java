@@ -1,5 +1,6 @@
 package com.onezero.bll.question.oj;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.onezero.mongo.data.OptionData;
 import com.onezero.mongo.data.QuestionData;
 import org.apache.commons.collections4.CollectionUtils;
@@ -19,6 +20,7 @@ public class Question {
     private Integer authorId;
     private Double difficulty;
     private String analysis;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdTime;
     private Date updatedTime;
 
@@ -27,7 +29,7 @@ public class Question {
 
     public Question(QuestionData data) {
         if (data != null) {
-            this.setId(this.getId());
+            this.setId(data.getId());
             this.setContent(data.getContent());
             if (CollectionUtils.isNotEmpty(data.getOptions())) {
                 this.setOptions(data.getOptions().stream().map(Option::new).collect(Collectors.toList()));

@@ -1,7 +1,10 @@
 package com.onezero.web.admin;
 
+import com.onezero.bll.account.UserManager;
 import com.onezero.bll.job.BatchJob;
 import com.onezero.bll.job.BatchJobManager;
+import com.onezero.bll.question.oj.Question;
+import com.onezero.bll.question.oj.QuestionManager;
 import com.onezero.datastructure.GenericResult;
 import com.onezero.datastructure.NoneDataResult;
 import com.onezero.datastructure.Page;
@@ -15,6 +18,10 @@ import java.util.List;
 public class BatchJobController {
     @Autowired
     private BatchJobManager batchJobManager;
+    @Autowired
+    UserManager userManager;
+    @Autowired
+    QuestionManager questionManager;
 
     @GetMapping("/getList")
     public GenericResult<Page<BatchJob>> getList(@RequestParam(value = "jobName", required = false) String jobName,
@@ -30,6 +37,10 @@ public class BatchJobController {
     @PostMapping("/create")
     public NoneDataResult create(@RequestBody BatchJob batchJob) {
         return batchJobManager.create(batchJob);
+    }
+    @PostMapping("/create1")
+    public NoneDataResult create(@RequestBody Question question) {
+        return questionManager.create(question);
     }
 
     @PostMapping("/update")

@@ -6,6 +6,7 @@ import com.onezero.dal.data.UserData;
 import com.onezero.model.UserTypeEnum;
 
 import java.util.Date;
+
 public class User extends BaseObject {
 	private String displayName;
 	private String email;
@@ -14,11 +15,10 @@ public class User extends BaseObject {
 	private String avatar;
 	private String introduction;
 	private String typeDesc;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createdTime;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updatedTime;
-
 
 	public UserData toData() {
 		UserData data = new UserData();
@@ -36,7 +36,7 @@ public class User extends BaseObject {
 
 
 	public User(UserData data) {
-		if(data != null) {
+		if (data != null) {
 			this.setId(data.getId());
 			this.setDisplayName(data.getDisplayName());
 			this.setEmail(data.getEmail());
@@ -50,8 +50,55 @@ public class User extends BaseObject {
 		}
 	}
 
-
 	public User() {
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 
 	public String getTypeDesc() {
@@ -62,88 +109,20 @@ public class User extends BaseObject {
 		this.typeDesc = typeDesc;
 	}
 
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
+	public Date getCreatedTime() {
+		return createdTime;
 	}
-
-
-	public String getDisplayName() {
-		return this.displayName;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public String getEmail() {
-		return this.email;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-	public String getPassword() {
-		return this.password;
-	}
-
-
-	public void setType(Integer type) {
-		this.type = type;
-	}
-
-	public void setType(UserTypeEnum userTypeEnum) {
-		this.type = userTypeEnum.id();
-	}
-
-
-	public Integer getType() {
-		return this.type;
-	}
-
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
-
-	public String getAvatar() {
-		return this.avatar;
-	}
-
-
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
-	}
-
-
-	public String getIntroduction() {
-		return this.introduction;
-	}
-
 
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
 
-
-	public Date getCreatedTime() {
-		return this.createdTime;
+	public Date getUpdatedTime() {
+		return updatedTime;
 	}
-
 
 	public void setUpdatedTime(Date updatedTime) {
 		this.updatedTime = updatedTime;
 	}
-
-
-	public Date getUpdatedTime() {
-		return this.updatedTime;
-	}
-
 
 }

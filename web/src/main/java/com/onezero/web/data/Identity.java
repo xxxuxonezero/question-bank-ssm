@@ -3,7 +3,6 @@ package com.onezero.web.data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.onezero.BaseObject;
 import com.onezero.bll.account.User;
-import com.onezero.model.UserTypeEnum;
 
 import java.util.Date;
 

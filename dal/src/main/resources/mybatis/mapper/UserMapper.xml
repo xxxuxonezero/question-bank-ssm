@@ -28,6 +28,7 @@
             password = #{password},
         </if>
          avatar = #{avatar}, introduction = #{introduction}
+         WHERE id = #{id}
     </update>
 
     <update id="resetPassword">

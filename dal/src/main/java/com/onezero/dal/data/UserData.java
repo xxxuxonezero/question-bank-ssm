@@ -2,6 +2,7 @@ package com.onezero.dal.data;
 
 import com.onezero.BaseObject;
 import java.util.Date;
+
 public class UserData extends BaseObject {
 	private String displayName;
 	private String email;

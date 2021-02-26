@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserManager {
-    private static final Logger logger = LoggerFactory.getLogger(User.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserManager.class);
     @Autowired
     private UserMapper userMapper;
 
@@ -30,7 +30,7 @@ public class UserManager {
         try {
             if (user != null) {
                 if (user.getType() == null) {
-                    user.setType(UserTypeEnum.NORMAL_USER);
+                    user.setType(UserTypeEnum.NORMAL_USER.id());
                 }
                 user.setPassword(MD5Utils.md5Hex(user.getPassword()));
                 userMapper.create(user.toData());

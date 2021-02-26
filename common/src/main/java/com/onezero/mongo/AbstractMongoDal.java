@@ -1,5 +1,6 @@
 package com.onezero.mongo;
 
+import com.onezero.datastructure.Page;
 import org.bson.conversions.Bson;
 
 import java.util.List;
@@ -20,6 +21,10 @@ public abstract class AbstractMongoDal<T> implements MongoBaseDal<T>{
     @Override
     public List<T> find(Bson bson, MongoMapper<T> mapper) {
         return this.getMongoHelper().find(bson, mapper);
+    }
+
+    public Page<T> findByPage(Bson bson, MongoMapper<T> mapper, int page, int pageSize) {
+        return this.getMongoHelper().findByPage(bson, mapper, page, pageSize);
     }
 
     @Override

@@ -5,12 +5,14 @@ import com.onezero.datastructure.GenericResult;
 import com.onezero.datastructure.NoneDataResult;
 import com.onezero.datastructure.Page;
 import com.onezero.mongo.QuestionDal;
+import com.onezero.mongo.data.QuestionData;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,10 +48,16 @@ public class QuestionManager {
         return result;
     }
 
-    public GenericResult<Page<Question>> search() {
+    public GenericResult<Page<Question>> search(String keyword, Integer type, Integer page, Integer pageSize) {
         GenericResult<Page<Question>> result = new GenericResult<>();
         try {
-
+            Page<QuestionData> pageData = questionDal.find(null, keyword, type, page, pageSize);
+            List<QuestionData> list = pageData.getData();
+            List<Question> questions = new ArrayList<>();
+            if (CollectionUtils.isNotEmpty(list)) {
+                questions = list.stream().map(Question::new).collect(Collectors.toList());
+            }
+            result.setData(new Page<>(pageData.getTotalCount(), questions));
         } catch (Exception e) {
             logger.error("search error", e);
             result.setCode(Code.DATABASE_SELECT_ERROR);

@@ -19,6 +19,10 @@ public class Page<T> {
         this.data = data == null ? new ArrayList<T>() : (List<T>) data;
     }
 
+    public Page() {
+        this.data = new ArrayList<>();
+    }
+
     public int getTotalCount() {
         return totalCount;
     }

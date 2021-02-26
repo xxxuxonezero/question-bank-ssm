@@ -5,7 +5,6 @@ import com.onezero.bll.account.UserManager;
 import com.onezero.datastructure.Code;
 import com.onezero.datastructure.GenericResult;
 import com.onezero.datastructure.NoneDataResult;
-import com.onezero.utils.JWTUtils;
 import com.onezero.web.data.Identity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MongoTest {
@@ -36,7 +37,7 @@ public class MongoTest {
         ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
         QuestionDal dal = ac.getBean(QuestionDal.class);
         QuestionData data = new QuestionData();
-        data.setDifficulty(0.9);
+        data.setDifficulty(1.0);
         data.setContent("jgowjgp");
         List<OptionData> options = new ArrayList<>();
         options.add(new OptionData("A", "gwioj"));
@@ -52,7 +53,7 @@ public class MongoTest {
         QuestionDal dal = ac.getBean(QuestionDal.class);
         List<QuestionData> list = new ArrayList<>();
         QuestionData data = new QuestionData();
-        data.setDifficulty(0.9);
+        data.setDifficulty(1.0);
         data.setContent("jgowjgp");
         List<OptionData> options = new ArrayList<>();
         options.add(new OptionData("A", "gwioj"));
@@ -73,5 +74,14 @@ public class MongoTest {
         QuestionDal dal = ac.getBean(QuestionDal.class);
         QuestionData data = new QuestionData();
         dal.delete("60366df35770153e957f3f7a");
+    }
+
+
+    @Test
+    public void search() {
+        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        QuestionDal dal = ac.getBean(QuestionDal.class);
+        dal.find(null, "网络", 1, 1,5);
+        dal.find(Arrays.asList("603780bb556cca1681061224"), null, null, 1, 5);
     }
 }

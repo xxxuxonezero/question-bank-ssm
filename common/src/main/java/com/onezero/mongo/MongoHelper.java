@@ -1,6 +1,8 @@
 package com.onezero.mongo;
 
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
+import com.onezero.datastructure.Page;
 import org.apache.commons.collections4.CollectionUtils;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -71,6 +73,23 @@ public class MongoHelper<T> {
             }
         }
         return list;
+    }
+
+    public Page<T> findByPage(Bson filter, MongoMapper<T> mapper, int page, int pageSize){
+        Page<T> res = new Page<>();
+        FindIterable<Document> findIterable = this.getCollection().find(filter).skip((page - 1) * pageSize).limit(pageSize);
+        long count = this.getCollection().countDocuments(filter);
+        if (findIterable != null) {
+            List<T> list = new ArrayList<>();
+            MongoCursor<Document> iterator = findIterable.iterator();
+            while (iterator.hasNext()) {
+                Document doc = iterator.next();
+                list.add(mapper.toData(doc));
+            }
+            res.setTotalCount((int) count);
+            res.setData(list);
+        }
+        return res;
     }
 
     public void delete(Bson filter){
