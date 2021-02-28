@@ -9,8 +9,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public abstract class MongoBaseMapper<T> implements MongoMapper<T>{
+public abstract class MongoBaseMapper<T> implements MongoMapper<T> {
+    private static Pattern humpPattern = Pattern.compile("[A-Z]");
+
     @Override
     public Document toDocument(T data) {
         if (data != null) {
@@ -28,7 +32,7 @@ public abstract class MongoBaseMapper<T> implements MongoMapper<T>{
                         }
                     } else if (field.getName().equals("createdTime") || field.getName().equals("updatedTime")) {
                     } else {
-                        doc.put(field.getName(), method.invoke(data));
+                        doc.put(getMongoFieldName(field.getName()), method.invoke(data));
                     }
                 }
             } catch (Exception e) {
@@ -46,33 +50,38 @@ public abstract class MongoBaseMapper<T> implements MongoMapper<T>{
         return str;
     }
 
-//    private List<Document> datas2DocumentList(List<? extends Object> datas, Class clazz) {
-//        List<Document> docs = new ArrayList<>();
-//        if (CollectionUtils.isNotEmpty(datas)) {
-//            Field[] fields = clazz.getDeclaredFields();
-//            for (int i = 0; i < datas.size(); i++) {
-//                try {
-//                    for (Field field : fields) {
-//                        Method method = clazz.getDeclaredMethod("get" + captureName(field.getName()));
-//                        doc.put(field.getName(), method.invoke(data));
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        return docs;
-//    }
-//
-//    private List<OptionData> docs2Datas(List<Document> docs) {
-//        List<OptionData> options = new ArrayList<>();
-//        if (CollectionUtils.isNotEmpty(docs)) {
-//            for (Document doc : docs) {
-//                OptionData option = new OptionData(doc.getString("label"), doc.getString("content"));
-//                options.add(option);
-//            }
-//        }
-//        return options;
-//    }
+    private String getMongoFieldName(String str) {
+        if (StringUtils.isNotEmpty(str)) {
+            Matcher matcher = humpPattern.matcher(str);
+            StringBuffer sb = new StringBuffer();
+            while (matcher.find()) {
+                matcher.appendReplacement(sb, "_" + matcher.group(0).toLowerCase());
+            }
+            matcher.appendTail(sb);
+            str = sb.toString();
+        }
+        return str;
+    }
+
+    public List<Document> datas2DocumentList(List<? extends Object> datas, Class clazz) {
+        List<Document> docs = null;
+        if (CollectionUtils.isNotEmpty(datas)) {
+            docs = new ArrayList<>();
+            Field[] fields = clazz.getDeclaredFields();
+            for (int i = 0; i < datas.size(); i++) {
+                try {
+                    Document doc = new MongoDocument();
+                    for (Field field : fields) {
+                        Method method = clazz.getDeclaredMethod("get" + captureName(field.getName()));
+                        doc.put(getMongoFieldName(field.getName()), method.invoke(datas.get(i)));
+                    }
+                    docs.add(doc);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return docs;
+    }
 
 }

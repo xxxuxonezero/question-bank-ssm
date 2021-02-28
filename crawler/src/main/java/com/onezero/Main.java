@@ -1,8 +1,7 @@
 package com.onezero;
 
+import com.onezero.crawler.LOJCrawler;
 import com.onezero.crawler.NowCoderCrawler;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,6 +12,7 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:spring.xml");
         NowCoderCrawler bean = ac.getBean(NowCoderCrawler.class);
+        LOJCrawler b = ac.getBean(LOJCrawler.class);
         Map<String, Object> map = new HashMap<>();
         map.put("url", "https://m.nowcoder.com/kaoyan?fm=ios_app_3.0.0&client=4&t=33E1579758B1F6E88BDF7D7856C6CA6D");
 
@@ -27,6 +27,7 @@ public class Main {
 //        } catch (Exception e) {
 //
 //        }
-        bean.execute(map);
+//        bean.execute(map);
+        b.execute(map);
     }
 }

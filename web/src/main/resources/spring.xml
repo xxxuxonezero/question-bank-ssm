@@ -7,7 +7,37 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <!--导入外部配置文件-->
-    <context:property-placeholder location="classpath:druid.properties"/>
+    <context:property-placeholder location="classpath:druid.properties, classpath:redis.properties"/>
+<!--    &lt;!&ndash;redis连接池基本配置&ndash;&gt;-->
+<!--    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
+<!--        <property name="maxTotal" value="${redis.maxActive}"/>-->
+<!--        <property name="maxIdle" value="${redis.maxIdle}"/>-->
+<!--        <property name="maxWaitMillis" value="${redis.maxWait}"/>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash;redis连接池配置&ndash;&gt;-->
+<!--    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">-->
+<!--        <property name="password" value="${redis.pass}"/>-->
+<!--        <property name="hostName" value="${redis.host}"/>-->
+<!--        <property name="port" value="${redis.port}"/>-->
+<!--        <property name="poolConfig" ref="poolConfig"/>-->
+<!--    </bean>-->
+<!--    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">-->
+<!--        <property name="connectionFactory" ref="jedisConnectionFactory"/>-->
+<!--        &lt;!&ndash;序列化方式&ndash;&gt;-->
+<!--        <property name="keySerializer">-->
+<!--            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>-->
+<!--        </property>-->
+<!--        <property name="valueSerializer">-->
+<!--            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>-->
+<!--        </property>-->
+<!--        <property name="hashKeySerializer">-->
+<!--            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>-->
+<!--        </property>-->
+<!--        <property name="hashValueSerializer">-->
+<!--            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>-->
+<!--        </property>-->
+<!--        <property name="enableTransactionSupport" value="false"/>-->
+<!--    </bean>-->
 
     <!--配置druid数据源-->
     <bean class="com.alibaba.druid.pool.DruidDataSource" id="ds">

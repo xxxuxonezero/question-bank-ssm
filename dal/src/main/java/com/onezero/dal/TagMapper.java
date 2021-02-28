@@ -8,6 +8,8 @@ import java.util.List;
 public interface TagMapper {
     void create(TagData data);
 
+    void batchCreate(List<TagData> datas);
+
     void update(TagData data);
 
     void delete(List<Integer> ids);

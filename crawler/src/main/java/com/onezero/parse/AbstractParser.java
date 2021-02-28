@@ -8,30 +8,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Type;
 
-public abstract class AbstractParser<T> implements IParser<T>{
+public abstract class AbstractParser implements IParser{
     @Override
-    public T parseHtml(String html) {
+    public Object parseHtml(String html) {
         return null;
     }
 
     @Override
-    public T parseJson(String json, Class<T> clazz) {
-        T o = null;
+    public Object parseJson(String json, Class clazz) {
+        Object o = null;
         try {
-            o = (T) JSONUtils.toObject(json, clazz);
+            o = JSONUtils.toObject(json, clazz);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return o;
     }
 
-    public T parseJson(String json, Type type) {
+    public Object parseJson(String json, Type type) {
         Gson gson = new Gson();
         return gson.fromJson(json, type);
     }
 
     @Override
-    public T parseHtml(HttpResponse response) {
+    public Object parseHtml(HttpResponse response) {
         try {
             return this.parseHtml(EntityUtils.toString(response.getEntity()));
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public abstract class AbstractParser<T> implements IParser<T>{
     }
 
     @Override
-    public T parseJson(HttpResponse response, Class<T> clazz) {
+    public Object parseJson(HttpResponse response, Class clazz) {
         try {
             return this.parseJson(EntityUtils.toString(response.getEntity()), clazz);
         } catch (Exception e) {

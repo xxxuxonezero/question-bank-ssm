@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS `thumb_up`;
+
+CREATE TABLE `thumb_up`(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    comment_id INT,
+    reply_id INT,
+    user_id INT NOT NULL,
+    created_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+    
+  

@@ -8,6 +8,15 @@
         VALUES(IF(#{parentId} IS NULL, 0, #{parentId}), #{name}, IF(#{userId} IS NULL, 0, #{userId}))
     </insert>
 
+    <insert id="batchCreate">
+        INSERT IGNORE INTO `tag`(parent_id, name, user_id)
+        VALUES
+        <foreach collection="list" separator="," item="item">
+            (IF(#{item.parentId} IS NULL, 0, #{item.parentId}), #{item.name}, IF(#{item.userId} IS NULL, 0, #{item.userId}))
+        </foreach>
+
+    </insert>
+
     <update id="update">
         UPDATE `tag`
         SET name = #{name}, parent_id = #{parentId}

@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS `comment`;
 
 CREATE TABLE `comment`(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(500),
     content VARCHAR(500) NOT NULL,
     images VARCHAR(500),
     user_id INT NOT NULL,

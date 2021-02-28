@@ -10,6 +10,12 @@ public class TagData extends BaseObject {
 	private Date createdTime;
 	private Date updatedTime;
 
+	public TagData(String name) {
+		this.name = name;
+	}
+
+	public TagData() {
+	}
 
 	public String getParentName() {
 		return parentName;

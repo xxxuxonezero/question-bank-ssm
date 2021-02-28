@@ -1,7 +1,10 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
+import com.onezero.mongo.OJQuestionDal;
+import com.onezero.mongo.OJQuestionMapper;
 import com.onezero.mongo.QuestionDal;
+import com.onezero.mongo.data.OJQuestionData;
 import com.onezero.mongo.data.OptionData;
 import com.onezero.mongo.data.QuestionData;
 import org.bson.Document;
@@ -83,5 +86,23 @@ public class MongoTest {
         QuestionDal dal = ac.getBean(QuestionDal.class);
         dal.find(null, "网络", 1, 1,5);
         dal.find(Arrays.asList("603780bb556cca1681061224"), null, null, 1, 5);
+    }
+
+    @Test
+    public void toDocument() {
+        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        OJQuestionMapper mapper = ac.getBean(OJQuestionMapper.class);
+        OJQuestionData data = new OJQuestionData();
+        Document doc = mapper.toDocument(data);
+        OJQuestionData data1 = mapper.toData(doc);
+        System.out.println(doc);
+    }
+
+    @Test
+    public void oj() {
+        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        OJQuestionDal b = ac.getBean(OJQuestionDal.class);
+        List<OJQuestionData> byIds = b.getByIds(Arrays.asList("603b6c8dad6190297cc5ec25", "603b6c8dad6190297cc5ec2e"));
+        System.out.println(byIds);
     }
 }
