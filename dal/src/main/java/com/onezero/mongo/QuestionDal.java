@@ -14,6 +14,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -40,8 +41,17 @@ public class QuestionDal extends AbstractMongoDal<QuestionData> {
     }
 
     public void delete(String id) {
-        Bson filter = Filters.eq("_id", new ObjectId(id));
-        delete(filter);
+        if (StringUtils.isNotEmpty(id)) {
+            delete(Collections.singletonList(id));
+        }
+    }
+
+    public void delete(List<String> ids) {
+        if (CollectionUtils.isNotEmpty(ids)) {
+            List<ObjectId> objectIds = ids.stream().map(ObjectId::new).collect(Collectors.toList());
+            Bson filter = Filters.in("_id", objectIds);
+            delete(filter);
+        }
     }
 
     public Page<QuestionData> find(List<String> ids, String keyword, Integer type, int page, int pageSize) {
@@ -59,5 +69,10 @@ public class QuestionDal extends AbstractMongoDal<QuestionData> {
         }
         Page<QuestionData> pageData = findByPage(filters, questionMapper, page, pageSize);
         return pageData;
+    }
+
+    public void update(QuestionData data) {
+        Bson filter = Filters.eq("_id", new ObjectId(data.getId()));
+        update(filter, data, questionMapper);
     }
 }

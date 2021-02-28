@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onezero.dal.TagMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT IGNORE INTO `tag`(parent_id, name, user_id)
+        VALUES(IF(#{parentId} IS NULL, 0, #{parentId}), #{name}, IF(#{userId} IS NULL, 0, #{userId}))
+    </insert>
+
+    <update id="update">
+        UPDATE `tag`
+        SET name = #{name}, parent_id = #{parentId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM `tag`
+        WHERE id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="search" resultMap="tag, count">
+        SELECT SQL_CALC_FOUND_ROWS t1.*, t2.name AS parent_name FROM `tag` t1
+        LEFT JOIN `tag` t2 ON t1.parent_id = t2.id
+        WHERE (#{parentId} IS NULL OR IF(#{parentId} = 0, t1.parent_id IS NULL OR t1.parent_id = 0, t1.parent_id = #{parentId}))
+        AND (#{userId} IS NULL OR IF(#{userId} = 0, t1.user_id IS NULL OR t1.user_id = 0, t1.user_id = #{userId}))
+        LIMIT ${(page - 1) * pageSize}, #{pageSize};
+
+        SELECT FOUND_ROWS() AS count;
+    </select>
+
+    <select id="getByIds" resultMap="tag">
+        SELECT t1.*, t2.name AS parent_name FROM `tag` t1
+        LEFT JOIN `tag` t2 ON t1.parent_id = t2.id
+        WHERE #{ids} IS NULL OR t1.id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <resultMap id="tag" type="com.onezero.dal.data.TagData">
+        <id column="id" property="id"></id>
+        <result column="parent_id" property="parentId"/>
+        <result column="parent_name" property="parentName"/>
+        <result column="name" property="name"/>
+        <result column="user_id" property="userId"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+</mapper>

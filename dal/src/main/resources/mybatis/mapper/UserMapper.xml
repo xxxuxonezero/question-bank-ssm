@@ -37,6 +37,14 @@
         WHERE id = #{id}
     </update>
 
+    <select id="getByIds" resultMap="user">
+        SELECT  * FROM `user`
+        WHERE id IN
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <select id="search" resultMap="user, count">
         SELECT SQL_CALC_FOUND_ROWS * FROM `user`
         WHERE (#{email} IS NULL OR email = #{email})

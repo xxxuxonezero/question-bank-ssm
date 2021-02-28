@@ -1,4 +1,4 @@
-package com.onezero.bll.question.oj;
+package com.onezero.bll.question;
 
 import com.onezero.mongo.data.OptionData;
 

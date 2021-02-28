@@ -1,4 +1,4 @@
-package com.onezero.bll.question.oj;
+package com.onezero.bll.question;
 
 import com.onezero.datastructure.Code;
 import com.onezero.datastructure.GenericResult;
@@ -61,6 +61,31 @@ public class QuestionManager {
         } catch (Exception e) {
             logger.error("search error", e);
             result.setCode(Code.DATABASE_SELECT_ERROR);
+        }
+        return result;
+    }
+
+    public NoneDataResult delete(List<String> ids) {
+        NoneDataResult result = new NoneDataResult();
+        try {
+            questionDal.delete(ids);
+        } catch (Exception e) {
+            logger.error("ids:{}, delete error", ids, e);
+            result.setCode(Code.DATABASE_DELETE_ERROR);
+        }
+        return result;
+
+    }
+
+    public NoneDataResult update(Question question) {
+        NoneDataResult result = new NoneDataResult();
+        try {
+            if (question != null) {
+                questionDal.update(question.toData());
+            }
+        } catch (Exception e) {
+            logger.error("question: {}", question, e);
+            result.setCode(Code.DATABASE_DELETE_ERROR);
         }
         return result;
     }

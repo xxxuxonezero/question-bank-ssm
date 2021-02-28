@@ -1,7 +1,6 @@
-package com.onezero.bll.question.oj;
+package com.onezero.bll.question;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.onezero.mongo.data.OptionData;
 import com.onezero.mongo.data.QuestionData;
 import org.apache.commons.collections4.CollectionUtils;
 

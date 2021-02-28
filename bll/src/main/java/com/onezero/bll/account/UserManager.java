@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -112,6 +113,25 @@ public class UserManager {
 
     public NoneDataResult delete(int id) {
         return delete(Collections.singletonList(id));
+    }
+
+    public GenericResult<List<User>> getByIds(List<Integer> ids) {
+        GenericResult<List<User>> result = new GenericResult<>();
+        if (CollectionUtils.isEmpty(ids)) {
+            return result;
+        }
+        try {
+            List<UserData> dataList = userMapper.getByIds(ids);
+            List<User> userList = new ArrayList<>();
+            if (CollectionUtils.isNotEmpty(dataList)) {
+                userList = dataList.stream().map(User::new).collect(Collectors.toList());
+            }
+            result.setData(userList);
+        } catch (Exception e) {
+            logger.error("ids: {}, getByIds error", ids, e);
+            result.setCode(Code.DATABASE_SELECT_ERROR);
+        }
+        return result;
     }
 
 }

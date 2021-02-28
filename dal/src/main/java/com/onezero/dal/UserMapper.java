@@ -20,4 +20,6 @@ public interface UserMapper {
 
     void resetPassword(@Param("id") Integer id,
                        @Param("password") String password);
+
+    List<UserData> getByIds(List<Integer> ids);
 }

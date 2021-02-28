@@ -1,8 +1,8 @@
 package com.onezero.parse;
 
-import com.onezero.bll.question.oj.Option;
-import com.onezero.bll.question.oj.Question;
-import com.onezero.bll.question.oj.QuestionManager;
+import com.onezero.bll.question.Option;
+import com.onezero.bll.question.Question;
+import com.onezero.bll.question.QuestionManager;
 import com.onezero.entity.nowcoder.PaperInfo;
 import com.onezero.model.QuestionTypeEnum;
 import org.jsoup.Jsoup;
