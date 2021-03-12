@@ -22,7 +22,7 @@ public class AuthUtils {
         return value;
     }
 
-    public static Identity getIdentify(HttpServletRequest request) {
+    public static Identity getIdentity(HttpServletRequest request) {
         String jwt = getCookie(request, Constant.IDENTITY);
         return (Identity) JWTUtils.getObject(jwt, Identity.class);
     }

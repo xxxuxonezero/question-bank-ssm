@@ -134,4 +134,18 @@ public class UserManager {
         return result;
     }
 
+    public GenericResult<User> getById(int id) {
+        GenericResult<User> result = new GenericResult<>();
+        if (id == 0) {
+            return result;
+        }
+        GenericResult<List<User>> usersResult = getByIds(Collections.singletonList(id));
+        if (usersResult.isNotValid()) {
+            result.setCode(usersResult.getCode());
+            return result;
+        }
+        result.setData(usersResult.getData().get(0));
+        return result;
+    }
+
 }

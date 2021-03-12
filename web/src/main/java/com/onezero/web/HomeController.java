@@ -26,7 +26,7 @@ public class HomeController {
             result.setCode(Code.EMAIL_OR_PASSWORD);
             return result;
         }
-        Identity identity = new Identity(userResult.getData());
+        Identity identity = new Identity();
         return result;
     }
 
