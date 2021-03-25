@@ -3,6 +3,7 @@ package com.onezero.datastructure;
 public enum Code implements ICode {
     OK(0, "SUCCESS"),
     INVALID_PARAMS(0x10000000, "无效的参数"),
+    INVALID_IMAGE(0x10000001, "无效的图片"),
 
     DATABASE_SELECT_ERROR(0x20000000, "数据库查询失败"),
     DATABASE_DELETE_ERROR(0x20000001, "数据库删除失败"),
@@ -10,7 +11,7 @@ public enum Code implements ICode {
     DATABASE_INSERT_ERROR(0x20000003, "数据库插入失败"),
 
     NO_AUTH(0X30000000,"无权限"),
-    EMAIL_OR_PASSWORD(0X30000001, "用户名或密码输入错误");
+    EMAIL_OR_PASSWORD_ERROR(0X30000001, "用户名或密码输入错误");
 
 
     private String msg;

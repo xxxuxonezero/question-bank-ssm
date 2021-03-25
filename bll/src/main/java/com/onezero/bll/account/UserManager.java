@@ -136,7 +136,7 @@ public class UserManager {
 
     public GenericResult<User> getById(int id) {
         GenericResult<User> result = new GenericResult<>();
-        if (id == 0) {
+        if (id <= 0) {
             return result;
         }
         GenericResult<List<User>> usersResult = getByIds(Collections.singletonList(id));

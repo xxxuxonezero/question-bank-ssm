@@ -1,6 +1,5 @@
 package com.onezero.crawler;
 
-import com.onezero.bll.question.TagManager;
 import com.onezero.dal.TagMapper;
 import com.onezero.dal.data.TagData;
 import com.onezero.downloader.LOJDownloader;
