@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:application-crawler.xml");
         NowCoderCrawler bean = ac.getBean(NowCoderCrawler.class);
         LOJCrawler b = ac.getBean(LOJCrawler.class);
         Map<String, Object> map = new HashMap<>();

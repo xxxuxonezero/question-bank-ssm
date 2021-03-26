@@ -16,7 +16,7 @@ public class TagTest {
         tagData.setName("1");
         TagData tagData1 = new TagData();
         tagData1.setName("2");
-        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("application-common.xml");
         TagMapper mapper = ac.getBean(TagMapper.class);
         mapper.batchCreate(Arrays.asList(tagData, tagData1));
 

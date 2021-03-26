@@ -37,7 +37,7 @@ public class MongoTest {
 
     @Test
     public void demo2() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("application-common.xml");
         QuestionDal dal = ac.getBean(QuestionDal.class);
         QuestionData data = new QuestionData();
         data.setDifficulty(1.0);
@@ -52,7 +52,7 @@ public class MongoTest {
 
     @Test
     public void insertMany() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("application-common.xml");
         QuestionDal dal = ac.getBean(QuestionDal.class);
         List<QuestionData> list = new ArrayList<>();
         QuestionData data = new QuestionData();
@@ -73,7 +73,7 @@ public class MongoTest {
 
     @Test
     public void delete() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("application-common.xml");
         QuestionDal dal = ac.getBean(QuestionDal.class);
         QuestionData data = new QuestionData();
         dal.delete("60366df35770153e957f3f7a");
@@ -82,7 +82,7 @@ public class MongoTest {
 
     @Test
     public void search() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("application-common.xml");
         QuestionDal dal = ac.getBean(QuestionDal.class);
         dal.find(null, "网络", 1, 1,5);
         dal.find(Arrays.asList("603780bb556cca1681061224"), null, null, 1, 5);
@@ -90,7 +90,7 @@ public class MongoTest {
 
     @Test
     public void toDocument() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("application-common.xml");
         OJQuestionMapper mapper = ac.getBean(OJQuestionMapper.class);
         OJQuestionData data = new OJQuestionData();
         Document doc = mapper.toDocument(data);
@@ -100,7 +100,7 @@ public class MongoTest {
 
     @Test
     public void oj() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("application-common.xml");
         OJQuestionDal b = ac.getBean(OJQuestionDal.class);
         List<OJQuestionData> byIds = b.getByIds(Arrays.asList("603b6c8dad6190297cc5ec25", "603b6c8dad6190297cc5ec2e"));
         System.out.println(byIds);

@@ -13,7 +13,8 @@ public class UserTest {
     UserManager userManager;
     @Before
     public void init() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        String path = UserTest.class.getClassLoader().getResource("test-spring.xml").toString();
+        ApplicationContext ac = new ClassPathXmlApplicationContext(path);
         userManager = ac.getBean(UserManager.class);
     }
 

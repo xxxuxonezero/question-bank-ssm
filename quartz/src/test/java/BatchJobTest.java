@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.Collections;
 
 public class BatchJobTest {
-    ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+    ApplicationContext ac = new ClassPathXmlApplicationContext("application-quartz.xml");
     BatchJobManager batchJobManager;
 
     @Before
@@ -40,7 +40,7 @@ public class BatchJobTest {
     }
 
     public static void main(String[] args) {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("application-quartz.xml");
     }
 
     @Test
