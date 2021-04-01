@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onezero.dal.BatchJobMapper">
-    <insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="com.onezero.dal.data.BatchJobData">
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO batch_job(group_name, job_name, job_class, job_cron, job_params)
         VALUES(#{groupName}, #{jobName}, #{jobClass}, IF(#{jobCron} IS NULL, '0', #{jobCron}), #{jobParams})
     </insert>

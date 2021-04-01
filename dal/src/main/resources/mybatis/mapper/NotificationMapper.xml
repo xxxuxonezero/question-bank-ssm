@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onezero.dal.NotificationMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `notification`(title, content, user_id, type, target_uesr, publish_time)
+        VALUES(#{title}, #{content}, #{userId}, #{type}, #{targetUser}, #{publishTime})
+    </insert>
+
+    <update id="update">
+        UPDATE `notification`
+        SET title = #{title}, content = #{content}, user_id = #{userId},
+        type = #{type}, target_user = #{targetUser}, publish_time = #{publishTime}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM `notification`
+        WHERE id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="search" resultMap="notification, count">
+        SELECT SQL_CALC_FOUND_ROWS * FROM `notification`
+        <if test="userId != null" >
+            WHERE user_id = #{userId}
+        </if>
+        LIMIT ${(page - 1) * pageSize}, #{pageSize}
+        ORDER BY publish_time DESC;
+
+        SELECT FOUND_ROWS() AS count;
+    </select>
+
+    <select id="getById" resultMap="notification">
+        SELECT * FROM `notification`
+        WHERE id = #{id}
+    </select>
+
+    <resultMap id="notification" type="com.onezero.dal.data.NotificationData">
+        <id column="id" property="id"></id>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="user_id" property="userId"/>
+        <result column="type" property="type"/>
+        <result column="target_user" property="targetUser"/>
+        <result column="publish_time" property="publishTime"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+</mapper>

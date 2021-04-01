@@ -1,11 +1,9 @@
 package com.onezero.web;
 
-import com.onezero.cache.CacheOperation;
 import com.onezero.datastructure.GenericResult;
 import com.onezero.utils.ImageUtils;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import org.bson.internal.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,9 +18,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/Svc")
 public class SvcController {
-    @Autowired
-    private CacheOperation cacheOperation;
-
     @GetMapping("/VerifyImage")
     public GenericResult<String> getVerifyImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         GenericResult<String> result = new GenericResult<>();

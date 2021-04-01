@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface BatchJobMapper {
+    List<BatchJobData> getAll();
+
     void create(BatchJobData batchJob);
 
     void update(BatchJobData batchJob);

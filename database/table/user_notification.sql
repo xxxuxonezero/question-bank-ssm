@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS `user_notification`;
+-- 用户收到的通知
+CREATE TABLE `user_notification`(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    notification_id INT NOT NULL,
+    status TINYINT NOT NULL DEFAULT 0 COMMENT '0未读 1已读',
+    created_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+    
+  

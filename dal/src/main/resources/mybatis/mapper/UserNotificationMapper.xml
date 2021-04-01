@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onezero.dal.UserNotificationMapper">
+    <insert id="batchCreate">
+        INSERT INTO `user_notification`(user_id, notification_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.userId}, #{item.notificationId})
+        </foreach>
+
+    </insert>
+
+    <update id="batchUpdate">
+        <foreach collection="list" item="item">
+            UPDATE user_notification SET status = #{item.status} WHERE id = #{item.id};
+        </foreach>
+    </update>
+
+    <delete id="delete">
+        DELETE FROM `user_notification`
+        WHERE user_id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="search" resultMap="userNotification, count">
+        SELECT SQL_CALC_FOUND_ROWS * FROM `user_notification`
+        WHERE user_id = #{userId}
+        LIMIT ${(page - 1) * pageSize}, #{pageSize};
+
+        SELECT FOUND_ROWS() AS count;
+    </select>
+
+    <resultMap id="userNotification" type="com.onezero.dal.data.UserNotificationData">
+        <id column="id" property="id"></id>
+        <result column="user_id" property="userId"/>
+        <result column="notification_id" property="notificationId"/>
+        <result column="status" property="status"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+</mapper>

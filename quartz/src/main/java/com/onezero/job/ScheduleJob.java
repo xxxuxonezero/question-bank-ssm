@@ -1,19 +1,13 @@
 package com.onezero.job;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onezero.BaseObject;
 import com.onezero.bll.job.BatchJob;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.Date;
-import java.util.Map;
 
 public class ScheduleJob {
 
-    public static final int WAITING = 0;
-    public static final int RUNNING = 1;
-    public static final int STOP = 2;
+    public static final int WAITING = 0; //启动
+    public static final int RUNNING = 1; //运行
+    public static final int STOP = 2; //停止（动作）
+    public static final int STOPPED = 3; //停止（状态）
 
     private int id;
     private String jobName;
